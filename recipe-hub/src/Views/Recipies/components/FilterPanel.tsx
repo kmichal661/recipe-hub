@@ -1,4 +1,11 @@
-import { Select, HStack, Button, createListCollection } from "@chakra-ui/react";
+import {
+  Select,
+  HStack,
+  Button,
+  createListCollection,
+  Stack,
+  Box,
+} from "@chakra-ui/react";
 import { useState } from "react";
 
 export function FilterPanel() {
@@ -46,97 +53,121 @@ export function FilterPanel() {
   }
 
   return (
-    <HStack gap={4} width="100%" alignItems="center" mt={10}>
-      <Select.Root
-        collection={categoriesCollection}
-        onValueChange={(v: any) => setCategory(v)}
+    <Stack
+      direction={{ base: "column", md: "row" }}
+      gap={4}
+      width="100%"
+      alignItems={{ base: "stretch", md: "center" }}
+      mt={10}
+    >
+      <Box w={{ base: "100%", md: "auto" }} flex={{ base: "none", md: 1 }}>
+        <Select.Root
+          collection={categoriesCollection}
+          onValueChange={(v: any) => setCategory(v)}
+        >
+          <Select.HiddenSelect />
+          <Select.Label>Category</Select.Label>
+
+          <Select.Control>
+            <Select.Trigger w="100%">
+              <Select.ValueText placeholder="All Categories" />
+            </Select.Trigger>
+            <Select.IndicatorGroup>
+              <Select.Indicator />
+              <Select.ClearTrigger />
+            </Select.IndicatorGroup>
+          </Select.Control>
+
+          <Select.Positioner>
+            <Select.Content>
+              {categories.map((item) => (
+                <Select.Item key={item.value} item={item as any}>
+                  <Select.ItemText>{item.label}</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Positioner>
+        </Select.Root>
+      </Box>
+
+      <Box w={{ base: "100%", md: "auto" }} flex={{ base: "none", md: 1 }}>
+        <Select.Root
+          collection={difficultiesCollection}
+          onValueChange={(v: any) => setDifficulty(v)}
+        >
+          <Select.HiddenSelect />
+          <Select.Label>Difficulty</Select.Label>
+
+          <Select.Control>
+            <Select.Trigger w="100%">
+              <Select.ValueText placeholder="All levels" />
+            </Select.Trigger>
+            <Select.IndicatorGroup>
+              <Select.Indicator />
+              <Select.ClearTrigger />
+            </Select.IndicatorGroup>
+          </Select.Control>
+
+          <Select.Positioner>
+            <Select.Content>
+              {difficulties.map((item) => (
+                <Select.Item key={item.value} item={item as any}>
+                  <Select.ItemText>{item.label}</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Positioner>
+        </Select.Root>
+      </Box>
+
+      <Box w={{ base: "100%", md: "auto" }} flex={{ base: "none", md: 1 }}>
+        <Select.Root
+          collection={cookTimesCollection}
+          onValueChange={(v: any) => setCookTime(v)}
+        >
+          <Select.HiddenSelect />
+          <Select.Label>Cook Time</Select.Label>
+
+          <Select.Control>
+            <Select.Trigger w="100%">
+              <Select.ValueText placeholder="Any duration" />
+            </Select.Trigger>
+            <Select.IndicatorGroup>
+              <Select.Indicator />
+              <Select.ClearTrigger />
+            </Select.IndicatorGroup>
+          </Select.Control>
+
+          <Select.Positioner>
+            <Select.Content>
+              {cookTimes.map((item) => (
+                <Select.Item key={item.value} item={item as any}>
+                  <Select.ItemText>{item.label}</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Positioner>
+        </Select.Root>
+      </Box>
+
+      <Box
+        w={{ base: "100%", md: "auto" }}
+        flex={{ md: 0 }}
+        display="flex"
+        justifyContent={{ base: "center", md: "flex-end" }}
       >
-        <Select.HiddenSelect />
-        <Select.Label>Category</Select.Label>
-
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="All Categories" />
-          </Select.Trigger>
-          <Select.IndicatorGroup>
-            <Select.Indicator />
-            <Select.ClearTrigger />
-          </Select.IndicatorGroup>
-        </Select.Control>
-
-        <Select.Positioner>
-          <Select.Content>
-            {categories.map((item) => (
-              <Select.Item key={item.value} item={item as any}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select.Root>
-
-      <Select.Root
-        collection={difficultiesCollection}
-        onValueChange={(v: any) => setDifficulty(v)}
-      >
-        <Select.HiddenSelect />
-        <Select.Label>Difficulty</Select.Label>
-
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="All levels" />
-          </Select.Trigger>
-          <Select.IndicatorGroup>
-            <Select.Indicator />
-            <Select.ClearTrigger />
-          </Select.IndicatorGroup>
-        </Select.Control>
-
-        <Select.Positioner>
-          <Select.Content>
-            {difficulties.map((item) => (
-              <Select.Item key={item.value} item={item as any}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select.Root>
-
-      <Select.Root
-        collection={cookTimesCollection}
-        onValueChange={(v: any) => setCookTime(v)}
-      >
-        <Select.HiddenSelect />
-        <Select.Label>Cook Time</Select.Label>
-
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Any duration" />
-          </Select.Trigger>
-          <Select.IndicatorGroup>
-            <Select.Indicator />
-            <Select.ClearTrigger />
-          </Select.IndicatorGroup>
-        </Select.Control>
-
-        <Select.Positioner>
-          <Select.Content>
-            {cookTimes.map((item) => (
-              <Select.Item key={item.value} item={item as any}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select.Root>
-
-      <Button colorScheme="teal" onClick={applyFilters} ml="auto" mt={6}>
-        Apply Filter
-      </Button>
-    </HStack>
+        <Button
+          colorScheme="teal"
+          onClick={applyFilters}
+          mt={{ base: 2, md: 6 }}
+          w={{ base: "100%", md: "auto" }}
+        >
+          Apply Filter
+        </Button>
+      </Box>
+    </Stack>
   );
 }

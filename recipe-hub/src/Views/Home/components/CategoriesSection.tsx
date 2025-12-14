@@ -17,7 +17,7 @@ export function CategoryCard({
   icon: IconType;
 }) {
   return (
-    <Card.Root padding={12} boxShadow="sm">
+    <Card.Root padding={6} boxShadow="sm">
       <VStack>
         <Box bgColor={"black"} p={3} borderRadius={8}>
           <Icon size={40} color="white" />

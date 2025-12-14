@@ -7,6 +7,7 @@ import {
   Heading,
   Text,
   HStack,
+  Stack,
   Breadcrumb,
   Avatar,
   Tag,
@@ -16,6 +17,7 @@ import {
   Card,
   Center,
   Spinner,
+  useBreakpointValue,
   Button,
 } from "@chakra-ui/react";
 import type { Recipe } from "../Recipies/components/interfaces";
@@ -30,6 +32,8 @@ import {
 
 export default function Recipe() {
   const { id } = useParams<{ id: string }>();
+
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const { loading, error, data } = useQuery<any>(GET_RECIPE_BY_ID, {
     variables: { recipeId: id },
@@ -54,14 +58,13 @@ export default function Recipe() {
 
   return (
     <VStack
-      pl={20}
-      pr={20}
+      px={{ base: 4, md: 20 }}
       gap={6}
       width="100%"
       align={"start"}
       color={"gray.500"}
     >
-      <Breadcrumb.Root>
+      <Breadcrumb.Root width="100%">
         <Breadcrumb.List>
           <Breadcrumb.Item>
             <Breadcrumb.Link href="#">Home</Breadcrumb.Link>
@@ -76,8 +79,13 @@ export default function Recipe() {
           </Breadcrumb.Item>
         </Breadcrumb.List>
       </Breadcrumb.Root>
-      <HStack align={"start"}>
-        <VStack p={3} width="60vw" align={"start"} gap={6}>
+
+      <Stack
+        direction={{ base: "column", md: "row" }}
+        align={"start"}
+        width="100%"
+      >
+        <VStack p={3} w={{ base: "100%", md: "60%" }} align={"start"} gap={6}>
           <Heading color={"black"} size="2xl">
             {recipe.title}
           </Heading>
@@ -94,39 +102,40 @@ export default function Recipe() {
               </Tag.Root>
             </HStack>
           </HStack>
-          <HStack>
-            <Text>
-              <HStack justify={"space-between"} gap={10}>
-                <HStack>
-                  <Avatar.Root>
-                    <Avatar.Fallback name="Segun Adebayo" />
-                    <Avatar.Image src="" />
-                  </Avatar.Root>
+          <HStack width="100%">
+            <VStack align="start">
+              <HStack>
+                <Avatar.Root>
+                  <Avatar.Fallback name="Segun Adebayo" />
+                  <Avatar.Image src="" />
+                </Avatar.Root>
+                <Text>
                   By {recipe.author.firstName} {recipe.author.lastName}
-                </HStack>
-                <HStack>
-                  <LuStar />{" "}
-                  {recipe.ratings.length > 0 ? (
-                    <>
-                      {(
-                        recipe.ratings.reduce((acc, r) => acc + r.rating, 0) /
-                        recipe.ratings.length
-                      ).toFixed(1)}
-                      {` (${recipe.ratings.length} reviews)`}
-                    </>
-                  ) : (
-                    "No ratings"
-                  )}
-                </HStack>
+                </Text>
               </HStack>
-            </Text>
+            </VStack>
+
+            <HStack marginLeft="auto">
+              <LuStar />
+              {recipe.ratings.length > 0 ? (
+                <>
+                  {(
+                    recipe.ratings.reduce((acc, r) => acc + r.rating, 0) /
+                    recipe.ratings.length
+                  ).toFixed(1)}
+                  {` (${recipe.ratings.length} reviews)`}
+                </>
+              ) : (
+                "No ratings"
+              )}
+            </HStack>
           </HStack>
           <Image
-            src={recipe.images[0].imageUrl}
+            src={recipe.images[0]?.imageUrl}
             alt={recipe.title}
-            width="90%"
-            minWidth={"600px"}
-            height="400px"
+            width={{ base: "100%", md: "90%" }}
+            minWidth={{ base: "auto", md: "600px" }}
+            height={{ base: "auto", md: "400px" }}
             objectFit="cover"
             borderRadius={10}
             boxShadow="lg"
@@ -138,8 +147,30 @@ export default function Recipe() {
             Ingredients
           </Heading>
           {/* Ingredients in two even columns */}
-          <HStack align={"start"} gap={8} w="90%">
+          {/* Ingredients: two columns on md+, single column on mobile */}
+          <Stack
+            direction={{ base: "column", md: "row" }}
+            align={"start"}
+            gap={8}
+            w={{ base: "100%", md: "90%" }}
+          >
             {(() => {
+              if (isMobile) {
+                return (
+                  <VStack align={"start"} gap={2} width="100%">
+                    {recipe.ingredients.map((item) => (
+                      <Checkbox.Root key={item.ingredient.id + item.quantity}>
+                        <Checkbox.HiddenInput />
+                        <Checkbox.Control />
+                        <Checkbox.Label>
+                          {item.quantity} {item.ingredient.name}
+                        </Checkbox.Label>
+                      </Checkbox.Root>
+                    ))}
+                  </VStack>
+                );
+              }
+
               const cols = [[], []] as (typeof recipe.ingredients)[];
               recipe.ingredients.forEach((it, idx) => cols[idx % 2].push(it));
               return cols.map((col, ci) => (
@@ -156,7 +187,7 @@ export default function Recipe() {
                 </VStack>
               ));
             })()}
-          </HStack>
+          </Stack>
           <Heading color={"black"} size="lg">
             Steps
           </Heading>
@@ -173,10 +204,15 @@ export default function Recipe() {
             ))}
           </VStack>
         </VStack>
-        {/* Right panel */}
-
-        <VStack p={3} width="30vw" align={"start"} gap={6}>
-          <Card.Root padding={5} boxShadow="md" width="100%">
+        {/* Right panel: only nutrition card (moved responsively) */}
+        <VStack p={3} w={{ base: "100%", md: "30%" }} align={"start"} gap={6}>
+          {/* Actions (hidden on mobile) */}
+          <Card.Root
+            padding={5}
+            boxShadow="md"
+            width="100%"
+            display={{ base: "none", md: "block" }}
+          >
             <VStack align={"center"} gap={4}>
               <Button size="lg" w={"80%"}>
                 <LuBookmark /> Save Recipe
@@ -190,8 +226,13 @@ export default function Recipe() {
             </VStack>
           </Card.Root>
 
-          {/* Nutrition Facts */}
-          <Card.Root padding={5} boxShadow="md" width="100%">
+          {/* On mobile we'll hide this card here and render it between ingredients and steps */}
+          <Card.Root
+            padding={5}
+            boxShadow="md"
+            width="100%"
+            display={{ base: "none", md: "block" }}
+          >
             <VStack align={"start"} gap={4}>
               <Heading size="lg" color={"black"}>
                 Nutrition Facts
@@ -217,7 +258,35 @@ export default function Recipe() {
             </VStack>
           </Card.Root>
         </VStack>
-      </HStack>
+      </Stack>
+      {/* Nutrition card for mobile: show between ingredients and steps */}
+      {isMobile && (
+        <Card.Root padding={5} boxShadow="md" width="100%">
+          <VStack align={"start"} gap={4}>
+            <Heading size="lg" color={"black"}>
+              Nutrition Facts
+            </Heading>
+            <VStack width={"100%"}>
+              <HStack justify={"space-between"} width="100%">
+                <Text>Calories:</Text>
+                <Text fontWeight={"bold"}>{recipe.calories} kcal</Text>
+              </HStack>
+              <HStack justify={"space-between"} width={"100%"}>
+                <Text>Protein:</Text>
+                <Text fontWeight={"bold"}>{recipe.protein} g</Text>
+              </HStack>
+              <HStack justify={"space-between"} width={"100%"}>
+                <Text>Carbohydrates:</Text>
+                <Text fontWeight={"bold"}>{recipe.carbs} g</Text>
+              </HStack>
+              <HStack justify={"space-between"} width={"100%"}>
+                <Text>Fat:</Text>
+                <Text fontWeight={"bold"}>{recipe.fat} g</Text>
+              </HStack>
+            </VStack>
+          </VStack>
+        </Card.Root>
+      )}
     </VStack>
   );
 }

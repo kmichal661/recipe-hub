@@ -1,4 +1,12 @@
-import { Heading, Text, Input, Button, VStack, HStack } from "@chakra-ui/react";
+import {
+  Heading,
+  Text,
+  Input,
+  Button,
+  VStack,
+  HStack,
+  Stack,
+} from "@chakra-ui/react";
 import { LuMail } from "react-icons/lu";
 import { useMutation } from "@apollo/client/react";
 import { CREATE_SUBSCRIBER } from "@/services/graphql";
@@ -41,25 +49,33 @@ export function NewsletterSubscribe() {
     <VStack
       bg="black"
       width="100%"
-      padding={10}
+      padding={{ base: 6, md: 10 }}
       alignItems="center"
       gap={6}
       color="white"
       mt={10}
     >
       <Heading as={LuMail} size="4xl" />
-      <Heading size="3xl">Get Weekly Recipe Updates</Heading>
+      <Heading size="3xl" textAlign="center">
+        Get Weekly Recipe Updates
+      </Heading>
       <Text color="gray.200" fontSize="md" textAlign="center" maxW="600px">
         Subscribe to our newsletter and receive new recipes, cooking tips, and
         exclusive content every week.
       </Text>
-      <HStack mt={5} gap={2}>
+      <Stack
+        mt={5}
+        gap={2}
+        direction={{ base: "column", md: "row" }}
+        width={{ base: "100%", md: "auto" }}
+        alignItems="center"
+        justifyContent="center"
+      >
         <Input
           placeholder="Enter your email address"
           size="lg"
-          w={"40vw"}
+          w={{ base: "100%", md: "40vw" }}
           bg="gray.800"
-          //   borderColor="gray.300"
           _placeholder={{ color: "white" }}
           onChange={(e) => setEmail(e.target.value)}
           value={email}
@@ -73,7 +89,7 @@ export function NewsletterSubscribe() {
         >
           Subscribe
         </Button>
-      </HStack>
+      </Stack>
       <Toaster />
     </VStack>
   );

@@ -1,6 +1,9 @@
 import {
   VStack,
   HStack,
+  Stack,
+  Wrap,
+  WrapItem,
   Heading,
   Text,
   Image,
@@ -29,125 +32,182 @@ import { LuMail, LuMapPin, LuPhone } from "react-icons/lu";
 export default function About() {
   return (
     <VStack>
-      <VStack padding={20} gap={8} align="center" bgColor={"gray.100"} w="100%">
-        <Heading size="4xl">About RecipeHub</Heading>
-        <Text fontSize="lg" color="gray.600" w={"60vw"} textAlign="center">
+      <VStack
+        padding={{ base: 8, md: 20 }}
+        gap={8}
+        align="center"
+        bgColor={"gray.100"}
+        w="100%"
+      >
+        <Heading size={{ base: "2xl", md: "4xl" }}>About RecipeHub</Heading>
+        <Text
+          fontSize={{ base: "md", md: "lg" }}
+          color="gray.600"
+          w={{ base: "100%", md: "60vw" }}
+          textAlign="center"
+        >
           Discover the story behind your favorite recipe destination and meet
           the passionate team bringing delicious dishes to your kitchen.
         </Text>
       </VStack>
-      <HStack width="100%" p={10}>
-        <VStack alignItems="flex-start" gap={4} padding={8} w={"40vw"}>
-          <Heading size="4xl">Our Story</Heading>
+      <Stack
+        width="100%"
+        p={{ base: 6, md: 10 }}
+        direction={{ base: "column", md: "row" }}
+        alignItems={{ base: "center", md: "stretch" }}
+      >
+        <VStack
+          alignItems="flex-start"
+          gap={4}
+          w={{ base: "100%", md: "40vw" }}
+        >
+          <Heading size={{ base: "xl", md: "4xl" }}>Our Story</Heading>
 
-          <Text color={"gray.500"} fontSize={"xl"}>
+          <Text color={"gray.500"} fontSize={{ base: "md", md: "xl" }}>
             Founded in 2020, RecipeHub started as a small blog sharing family
             recipes passed down through generations. What began as a personal
             project quickly grew into a vibrant community of food enthusiasts
             from around the world.
           </Text>
           <br />
-          <Text color={"gray.500"} fontSize={"xl"}>
+          <Text color={"gray.500"} fontSize={{ base: "md", md: "xl" }}>
             Today, we're proud to be home to over 10,000 tested recipes, serving
             millions of home cooks who trust us to help them create memorable
             meals for their loved ones.
           </Text>
 
-          <HStack pt={5} gap={10} mt={10}>
+          <HStack pt={5} gap={6} mt={6}>
             <Box>
               <VStack justify={"start"} align={"start"}>
-                <Text fontSize={30}>10K+</Text>
+                <Text fontSize={24}>10K+</Text>
                 <Text color={"gray.500"}>Recipes</Text>
               </VStack>
             </Box>
             <Box>
               <VStack justify={"start"} align={"start"}>
-                <Text fontSize={30}>2M+</Text>
+                <Text fontSize={24}>2M+</Text>
                 <Text color={"gray.500"}>Monthly Users</Text>
               </VStack>
             </Box>
             <Box>
               <VStack justify={"start"} align={"start"}>
-                <Text fontSize={30}>50+</Text>
+                <Text fontSize={24}>50+</Text>
                 <Text color={"gray.500"}>Countries</Text>
               </VStack>
             </Box>
           </HStack>
         </VStack>
-        <VStack flex={1} alignItems="center">
+        <VStack flex={1} alignItems="center" mt={{ base: 6, md: 0 }}>
           <Image
             src={AboutUs}
             alt="Delicious Food"
             borderRadius={10}
             boxShadow="lg"
-            maxHeight="400px"
+            maxHeight={{ base: "300px", md: "400px" }}
             objectFit="cover"
+            width={{ base: "100%", md: "auto" }}
           />
         </VStack>
-      </HStack>
+      </Stack>
 
-      <VStack mt={10} align="center" bgColor={"gray.100"} w="100%">
-        <Heading size="3xl" mb={1} mt={10}>
+      <VStack
+        mt={10}
+        align="center"
+        bgColor={"gray.100"}
+        w="100%"
+        px={{ base: 4, md: 0 }}
+      >
+        <Heading
+          size={{ base: "xl", md: "3xl" }}
+          mb={1}
+          mt={10}
+          textAlign="center"
+        >
           Meet Our Team
         </Heading>
-        <Text color={"gray.500"} w={"40vw"} textAlign="center">
+        <Text
+          color={"gray.500"}
+          w={{ base: "100%", md: "40vw" }}
+          textAlign="center"
+        >
           Our passionate team of chefs, food writers, and recipe developers work
           tirelessly to bring you the best culinary content.
         </Text>
-        <HStack gap={20}>
-          <VStack align="center" p={10} gap={2}>
-            <Avatar.Root size={"2xl"}>
-              <Avatar.Fallback name="Sarah Johnson" />
-              <Avatar.Image src={TeamTwo} />
-            </Avatar.Root>
-            <Text>Sarah Johnson</Text>
-            <Text color={"gray.500"}>Head Chef & Founder</Text>
-            <Text textAlign="center" color={"gray.500"}>
-              15 years of culinary experience
-            </Text>
-          </VStack>
-          <VStack align="center" p={10} gap={2}>
-            <Avatar.Root size={"2xl"}>
-              <Avatar.Fallback name="Mike Chen" />
-              <Avatar.Image src={TeamThree} />
-            </Avatar.Root>
-            <Text>Mike Chen</Text>
-            <Text color={"gray.500"}>Recipe Developer</Text>
-            <Text textAlign="center" color={"gray.500"}>
-              Asian cuisine specialist
-            </Text>
-          </VStack>
-          <VStack align="center" p={10} gap={2}>
-            <Avatar.Root size={"2xl"}>
-              <Avatar.Fallback name="Sarah Johnson" />
-              <Avatar.Image src={TeamOne} />
-            </Avatar.Root>
-            <Text>Emma Rodriguez</Text>
-            <Text color={"gray.500"}>Food Writer</Text>
-            <Text textAlign="center" color={"gray.500"}>
-              Nutrition & wellness expert
-            </Text>
-          </VStack>
-        </HStack>
+        <Wrap gap={6} justify="center" mt={6} px={4}>
+          {[
+            {
+              name: "Sarah Johnson",
+              role: "Head Chef & Founder",
+              img: TeamTwo,
+              bio: "15 years of culinary experience",
+            },
+            {
+              name: "Mike Chen",
+              role: "Recipe Developer",
+              img: TeamThree,
+              bio: "Asian cuisine specialist",
+            },
+            {
+              name: "Emma Rodriguez",
+              role: "Food Writer",
+              img: TeamOne,
+              bio: "Nutrition & wellness expert",
+            },
+          ].map((member) => (
+            <WrapItem key={member.name}>
+              <VStack
+                align="center"
+                p={{ base: 4, md: 10 }}
+                gap={2}
+                w={{ base: "80vw", md: "auto" }}
+              >
+                <Avatar.Root size={{ base: "lg", md: "2xl" }}>
+                  <Avatar.Fallback name={member.name} />
+                  <Avatar.Image src={member.img} />
+                </Avatar.Root>
+                <Text>{member.name}</Text>
+                <Text color={"gray.500"}>{member.role}</Text>
+                <Text textAlign="center" color={"gray.500"}>
+                  {member.bio}
+                </Text>
+              </VStack>
+            </WrapItem>
+          ))}
+        </Wrap>
       </VStack>
 
       {/* Get in Touch section */}
-      <VStack>
-        <Heading size="3xl" mb={1} mt={10}>
+      <VStack px={{ base: 4, md: 0 }} py={10} w="100%">
+        <Heading
+          size={{ base: "xl", md: "3xl" }}
+          mb={1}
+          mt={2}
+          textAlign="center"
+        >
           Get in Touch
         </Heading>
-        <Text color={"gray.500"} w={"40vw"} textAlign="center">
+        <Text
+          color={"gray.500"}
+          w={{ base: "100%", md: "40vw" }}
+          textAlign="center"
+        >
           Have questions or want to collaborate? We'd love to hear from you!
         </Text>
 
-        <HStack>
+        <Stack
+          direction={{ base: "column", md: "row" }}
+          gap={6}
+          width="100%"
+          alignItems={{ base: "center", md: "flex-start" }}
+          justify={{ base: "center", md: "space-between" }}
+          maxW={{ base: "100%", md: "1100px" }}
+          mx={{ base: 0, md: "auto" }}
+        >
           <VStack
-            width="40vw"
+            width={{ base: "100%", md: "48%" }}
             gap={4}
             alignItems="flex-start"
-            // border={"1px solid rgba(0,0,0,0.1)"}
-            p={10}
-            // borderRadius={15}
+            p={{ base: 4, md: 10 }}
           >
             <Heading size="xl">Send Us a Message</Heading>
             <Formik
@@ -293,12 +353,12 @@ export default function About() {
           </VStack>
 
           <VStack
-            width="40vw"
+            width={{ base: "100%", md: "48%" }}
             gap={4}
-            alignItems="flex-start"
+            alignItems={{ base: "center", md: "flex-start" }}
             color={"gray.600"}
           >
-            <VStack align="flex-start">
+            <VStack align={{ base: "center", md: "flex-start" }}>
               <Heading color={"black"} size="xl">
                 Contact Information
               </Heading>
@@ -318,7 +378,7 @@ export default function About() {
                 </HStack>
               </Text>
             </VStack>
-            <VStack align="flex-start" mt={10}>
+            <VStack align={{ base: "center", md: "flex-start" }} mt={10}>
               <Heading color={"black"} size="xl">
                 {" "}
                 Follow Us
@@ -359,23 +419,36 @@ export default function About() {
               </HStack>
             </VStack>
 
-            <VStack w={"30vw"} align="flex-start" mt={10}>
+            <VStack
+              w={{ base: "100%", md: "30vw" }}
+              align={{ base: "center", md: "flex-start" }}
+              mt={10}
+            >
               <Heading>Office Hours</Heading>
-              <HStack justify={"space-between"} w="100%">
+              <HStack
+                justify={{ base: "center", md: "space-between" }}
+                w="100%"
+              >
                 <Text>Monday - Friday:</Text>
                 <Text>9:00 AM - 6:00 PM</Text>
               </HStack>
-              <HStack justify={"space-between"} w="100%">
+              <HStack
+                justify={{ base: "center", md: "space-between" }}
+                w="100%"
+              >
                 <Text>Saturday:</Text>
                 <Text>10:00 AM - 4:00 PM</Text>
               </HStack>
-              <HStack justify={"space-between"} w="100%">
+              <HStack
+                justify={{ base: "center", md: "space-between" }}
+                w="100%"
+              >
                 <Text>Sunday:</Text>
                 <Text>Closed</Text>
               </HStack>
             </VStack>
           </VStack>
-        </HStack>
+        </Stack>
       </VStack>
     </VStack>
   );

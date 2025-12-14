@@ -9,6 +9,8 @@ import {
   Image,
   Tag,
   Avatar,
+  Flex,
+  Box,
 } from "@chakra-ui/react";
 import { LuStar } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
@@ -31,7 +33,7 @@ function RecipieCard({
   rating,
 }: IRecipieCardProps) {
   return (
-    <Card.Root w="400px" overflow="hidden">
+    <Card.Root w={{ base: "100%", md: "400px" }} overflow="hidden">
       <Image
         src={
           imageUrl ||
@@ -80,27 +82,30 @@ export function FeaturedRecipes() {
     <VStack
       width="100%"
       alignItems="start"
-      padding={20}
+      padding={{ base: 8, md: 20 }}
       bgColor={"gray.100"}
       mt={20}
     >
       <HStack justifyContent="space-between" width="100%">
-        <Stack>
+        <Stack flex={1}>
           <Heading size={"4xl"} mt={10} mb={1}>
             Featured Recipes
           </Heading>
           <Text color={"gray.500"}>Our most popular recipes this week</Text>
         </Stack>
-        <NavLink to="/recipes">
-          <Button variant={"outline"} mt={10}>
-            See All Recipes
-          </Button>
-        </NavLink>
+        <Box display={{ base: "none", md: "block" }}>
+          <NavLink to="/recipes">
+            <Button variant={"outline"} mt={10}>
+              See All Recipes
+            </Button>
+          </NavLink>
+        </Box>
       </HStack>
 
-      <HStack
-        justify={"space-around"}
-        align={"center"}
+      <Flex
+        flexWrap="wrap"
+        justify={{ base: "center", md: "space-around" }}
+        align="center"
         width="100%"
         mt={10}
         gap={10}
@@ -129,7 +134,7 @@ export function FeaturedRecipes() {
           chefName="Chef Lisa"
           rating={4.7}
         />
-      </HStack>
+      </Flex>
     </VStack>
   );
 }

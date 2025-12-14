@@ -1,6 +1,9 @@
 import {
   VStack,
   HStack,
+  Stack,
+  Wrap,
+  WrapItem,
   Heading,
   Input,
   Text,
@@ -26,33 +29,35 @@ export default function Contact() {
   return (
     <VStack gap={8} width="100%" alignItems="start">
       <VStack
-        alignItems="flex-start"
+        alignItems={{ base: "center", md: "flex-start" }}
+        textAlign={{ base: "center", md: "left" }}
         justify={"flex-start"}
         gap={4}
-        p={20}
+        p={{ base: 8, md: 20 }}
         width="100%"
         bg={"gray.100"}
       >
-        <Heading size={"5xl"}>Get in Touch</Heading>
-        <Text color={"gray.500"}>
+        <Heading size={{ base: "3xl", md: "5xl" }}>Get in Touch</Heading>
+        <Text color={"gray.500"} maxW={{ base: "100%", md: "60%" }}>
           Have a question, suggestion, or just want to share your cooking
           experience? We'd love to hear from you!
         </Text>
       </VStack>
 
-      <HStack
-        alignItems="flex-start"
+      <Stack
+        direction={{ base: "column", md: "row" }}
+        alignItems={{ base: "center", md: "flex-start" }}
         gap={10}
         width="100%"
-        padding={20}
-        justify={"space-around"}
+        padding={{ base: 8, md: 20 }}
+        justify={{ base: "center", md: "space-around" }}
       >
         <Card.Root
-          width="40vw"
+          width={{ base: "100%", md: "40vw" }}
           gap={4}
           alignItems="flex-start"
           border={"1px solid rgba(0,0,0,0.1)"}
-          p={10}
+          p={{ base: 6, md: 10 }}
           borderRadius={15}
         >
           <Heading size="xl">Send Us a Message</Heading>
@@ -193,37 +198,48 @@ export default function Contact() {
             )}
           </Formik>
         </Card.Root>
-        <VStack>
-          <Card.Root p={20} borderRadius={15} w={"38vw"}>
-            <VStack gap={10} alignItems="flex-start">
-              <HStack>
+        <VStack
+          w={{ base: "100%", md: "38vw" }}
+          gap={6}
+          alignItems={{ base: "center", md: "flex-start" }}
+        >
+          <Card.Root
+            p={{ base: 6, md: 20 }}
+            borderRadius={15}
+            w={{ base: "100%", md: "38vw" }}
+          >
+            <VStack
+              gap={10}
+              alignItems={{ base: "flex-start", md: "flex-start" }}
+            >
+              <HStack alignItems="flex-start" gap={4}>
                 <Box bgColor={"black"} p={3} borderRadius={8}>
                   <FiMail size={30} color="white" />
                 </Box>
                 <VStack alignItems="flex-start">
-                  <Text>Email us</Text>
+                  <Text fontWeight={600}>Email us</Text>
                   <Text color={"gray.500"}>
                     Our team typically responds within 24 hours
                   </Text>
                   <Text>hello@recipehub.com</Text>
                 </VStack>
               </HStack>
-              <HStack>
+              <HStack alignItems="flex-start" gap={4}>
                 <Box bgColor={"black"} p={3} borderRadius={8}>
                   <FiPhone size={30} color="white" />
                 </Box>
                 <VStack alignItems="flex-start">
-                  <Text>Call Us</Text>
+                  <Text fontWeight={600}>Call Us</Text>
                   <Text color={"gray.500"}>Mon-Fri from 9am to 6pm EST</Text>
                   <Text>+1 (555) 123-4567</Text>
                 </VStack>
               </HStack>
-              <HStack>
+              <HStack alignItems="flex-start" gap={4}>
                 <Box bgColor={"black"} p={3} borderRadius={8}>
                   <FiMapPin size={30} color="white" />
                 </Box>
                 <VStack alignItems="flex-start">
-                  <Text>Visit Us</Text>
+                  <Text fontWeight={600}>Visit Us</Text>
                   <Text color={"gray.500"}>
                     123 Culinary Street New York, NY 10001 United States
                   </Text>
@@ -231,7 +247,7 @@ export default function Contact() {
               </HStack>
             </VStack>
           </Card.Root>
-          <Card.Root w={"38vw"} borderRadius={15}>
+          <Card.Root w={{ base: "100%", md: "38vw" }} borderRadius={15}>
             <Card.Header>
               <Text>Follow Us</Text>
             </Card.Header>
@@ -253,7 +269,7 @@ export default function Contact() {
             </Card.Body>
           </Card.Root>
           <Card.Root
-            w={"38vw"}
+            w={{ base: "100%", md: "38vw" }}
             borderRadius={15}
             bgColor={"black"}
             color="white"
@@ -271,46 +287,77 @@ export default function Contact() {
             </Card.Body>
           </Card.Root>
         </VStack>
-      </HStack>
+      </Stack>
 
       <VStack gap={8} width="100%" alignItems="center" bgColor={"gray.100"}>
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10326.207102090975!2d-73.99380947377739!3d40.76168321039456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1spl!2spl!4v1764432284196!5m2!1spl!2spl"
-          width="1200"
-          height="450"
-        />
+        <Box width={{ base: "100%", md: "1200px" }}>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10326.207102090975!2d-73.99380947377739!3d40.76168321039456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1spl!2spl!4v1764432284196!5m2!1spl!2spl"
+            width="100%"
+            height="450"
+            style={{ border: 0 }}
+            loading="lazy"
+          />
+        </Box>
       </VStack>
 
-      <VStack gap={8} width="100%" alignItems="center" p={20}>
+      <VStack gap={8} width="100%" alignItems="center" p={{ base: 8, md: 20 }}>
         <Heading size={"2xl"}>Office Hours</Heading>
         <Text color={"gray.500"}>We're here to help during these times</Text>
-
-        <HStack>
-          <Card.Root p={10} borderRadius={15} bgColor={"gray.100"} w={"20vw"}>
-            <VStack alignItems="center" gap={4}>
-              <Text>Monday - Friday</Text>
-              <Text>9:00 AM - 6:00 PM</Text>
-            </VStack>
-          </Card.Root>
-          <Card.Root p={10} borderRadius={15} bgColor={"gray.100"} w={"20vw"}>
-            <VStack alignItems="center" gap={4}>
-              <Text>Saturday</Text>
-              <Text>10:00 AM - 4:00 PM</Text>
-            </VStack>
-          </Card.Root>
-          <Card.Root p={10} borderRadius={15} bgColor={"gray.100"} w={"20vw"}>
-            <VStack alignItems="center" gap={4}>
-              <Text>Sunday</Text>
-              <Text>Closed</Text>
-            </VStack>
-          </Card.Root>
-          <Card.Root p={10} borderRadius={15} bgColor={"gray.100"} w={"20vw"}>
-            <VStack alignItems="center" gap={4}>
-              <Text>Holidays</Text>
-              <Text>Closed</Text>
-            </VStack>
-          </Card.Root>
-        </HStack>
+        <Wrap gap={6} justify="center" width="100%">
+          <WrapItem w={{ base: "100%", md: "auto" }}>
+            <Card.Root
+              p={{ base: 6, md: 10 }}
+              borderRadius={15}
+              bgColor={"gray.100"}
+              w={{ base: "100%", md: "20vw" }}
+            >
+              <VStack alignItems="center" gap={4}>
+                <Text>Monday - Friday</Text>
+                <Text>9:00 AM - 6:00 PM</Text>
+              </VStack>
+            </Card.Root>
+          </WrapItem>
+          <WrapItem w={{ base: "100%", md: "auto" }}>
+            <Card.Root
+              p={{ base: 6, md: 10 }}
+              borderRadius={15}
+              bgColor={"gray.100"}
+              w={{ base: "100%", md: "20vw" }}
+            >
+              <VStack alignItems="center" gap={4}>
+                <Text>Saturday</Text>
+                <Text>10:00 AM - 4:00 PM</Text>
+              </VStack>
+            </Card.Root>
+          </WrapItem>
+          <WrapItem w={{ base: "100%", md: "auto" }}>
+            <Card.Root
+              p={{ base: 6, md: 10 }}
+              borderRadius={15}
+              bgColor={"gray.100"}
+              w={{ base: "100%", md: "20vw" }}
+            >
+              <VStack alignItems="center" gap={4}>
+                <Text>Sunday</Text>
+                <Text>Closed</Text>
+              </VStack>
+            </Card.Root>
+          </WrapItem>
+          <WrapItem w={{ base: "100%", md: "auto" }}>
+            <Card.Root
+              p={{ base: 6, md: 10 }}
+              borderRadius={15}
+              bgColor={"gray.100"}
+              w={{ base: "100%", md: "20vw" }}
+            >
+              <VStack alignItems="center" gap={4}>
+                <Text>Holidays</Text>
+                <Text>Closed</Text>
+              </VStack>
+            </Card.Root>
+          </WrapItem>
+        </Wrap>
       </VStack>
     </VStack>
   );
