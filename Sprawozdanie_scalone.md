@@ -512,6 +512,40 @@ Zapytania i mutacje są zdefiniowane w sposób umożliwiający łatwe rozszerzan
 - **Wydajność**: Dzięki zastosowaniu GraphQL i TypeORM, aplikacja jest wydajna i łatwa w skalowaniu.
 - **Bezpieczeństwo**: Hasła użytkowników są przechowywane w postaci zaszyfrowanej, co zwiększa bezpieczeństwo danych.
 
+## Widoki, Triggery i Funkcje w Bazie Danych
+
+### Widoki w Bazie Danych
+
+Poniżej przedstawiono widoki zaimplementowane w bazie danych. Widoki te umożliwiają łatwiejsze pobieranie danych z różnych tabel w uporządkowany sposób:
+
+![Widok 1](image.png)
+
+![Widok 2](image-1.png)
+
+---
+
+### Triggery w Bazie Danych
+
+Triggery zostały zaimplementowane w celu automatyzacji pewnych operacji w bazie danych, takich jak aktualizacje lub walidacje danych. Przykład triggera:
+
+![Trigger](image-2.png)
+
+---
+
+### Funkcje w Bazie Danych
+
+Funkcje w bazie danych zostały zaimplementowane w celu obsługi logiki, która normalnie byłaby realizowana w procedurach. Ze względu na ograniczenia SQLite, procedury nie są obsługiwane, dlatego logika została przeniesiona do funkcji.
+
+![Funkcja 1](image-3.png)
+
+---
+
+### Procedury
+
+Procedury nie są stosowane w SQLite ze względu na jego ograniczenia. Logika, która normalnie byłaby zaimplementowana w procedurach, została przeniesiona do funkcji bazy danych.
+
+![Funkcja zastępująca procedurę](image-4.png)
+
 ## Screeny aplikacji
 
 Poniżej znajdują się screeny aplikacji przedstawiające różne widoki na urządzeniach desktopowych i mobilnych.
