@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Backend: backend (node)",
+      "type": "pwa-node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/backend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "console": "integratedTerminal",
+      "autoAttachChildProcesses": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Frontend: recipe-hub (vite)",
+      "type": "pwa-node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/recipe-hub",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "console": "integratedTerminal",
+      "autoAttachChildProcesses": true,
+      "skipFiles": ["<node_internals>/**"],
+      "serverReadyAction": {
+        "pattern": "Local:\\s+http://localhost:(\\d+)",
+        "action": "debugWithChrome",
+        "uriFormat": "http://localhost:%s"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Start: frontend + backend",
+      "configurations": [
+        "Backend: backend (node)",
+        "Frontend: recipe-hub (vite)"
+      ]
+    }
+  ]
+}
