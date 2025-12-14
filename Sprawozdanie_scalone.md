@@ -1,4 +1,32 @@
-# Sprawozdanie
+![alt text](image-5.png)
+
+## Sprawozdanie z projektu aplikacji webowej, backendowej oraz UX/UI
+
+## Projekt Strony: RecipeHub
+
+---
+
+**Autor:**  
+Michał Kubicki
+
+**Numer albumu:**  
+15532
+
+**Data:**  
+14 grudnia 2025
+
+**Kierunek:**  
+Informatyka
+
+**Tryb studiów:**
+Niestacjonarne
+
+**Semester:**
+5
+
+<!-- Page break for PDF export -->
+
+## <div style="page-break-after: always;"></div>
 
 # UX/UI – RecipeHub
 
